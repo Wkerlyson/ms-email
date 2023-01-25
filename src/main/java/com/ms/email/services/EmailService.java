@@ -18,14 +18,10 @@ import java.time.LocalDateTime;
 public class EmailService {
     @Autowired
     private EmailRepository emailRepository;
-    @Value("${spring.mail.password}")
-    private String pass;
-
     @Autowired
     private JavaMailSender mailSender;
 
     public EmailModel sendEmail(EmailModel emailModel) {
-        log.error(pass);
         emailModel.setSendDateEmail(LocalDateTime.now());
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -38,7 +34,8 @@ public class EmailService {
             emailModel.setStatusEmail(StatusEmail.SENT);
         }catch (MailException e){
             emailModel.setStatusEmail(StatusEmail.ERROR);
-            log.error("Error sending email to " + emailModel.getEmailTo() + " | ERROR: "  + e.getMessage());
+            log.error("> MsEmail.EmailService.sendEmail | Error sending email to " + emailModel.getEmailTo()
+                        + " | ERROR: "  + e.getMessage());
         }finally {
             return emailRepository.save(emailModel);
         }
