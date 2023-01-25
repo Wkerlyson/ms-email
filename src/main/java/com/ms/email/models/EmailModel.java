@@ -1,5 +1,6 @@
 package com.ms.email.models;
 
+import com.ms.email.enums.StatusEmail;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_EMAIL")
 public class EmailModel implements Serializable {
+
+    private static final long serialVersionUID = -3013122315662714947L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long emailId;
@@ -21,8 +24,4 @@ public class EmailModel implements Serializable {
     private String text;
     private LocalDateTime sendDateEmail;
     private StatusEmail statusEmail;
-
-    private static final long serialVersionUID = -3013122315662714947L;
-
-
 }
